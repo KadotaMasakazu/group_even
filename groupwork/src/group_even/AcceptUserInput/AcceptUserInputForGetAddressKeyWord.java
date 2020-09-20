@@ -22,6 +22,7 @@ public class AcceptUserInputForGetAddressKeyWord {
 				System.out.println("住所の一部を入力してください:"
 						+ "(" + endcallLoop + "で終了)");
 				System.out.println("例:平岸,062");
+				k=openInput.readLine();
 				if (k.equals(endcallLoop)) {
 					System.out.println("終了します");
 					break;

@@ -11,17 +11,17 @@ public class AcceptUserInput {
 	public void inputReception() {
 
 		String userInput = "";
-		String endcallLoop = "q";
+		String []endcallLoop = {"q","ｑ"};
 
 		try (BufferedReader openInput = new BufferedReader(
 				new InputStreamReader(System.in))) {
 
 			String u = userInput;
 			//1～5の番号ごとにインスタンスを生成して入力用メソッドに渡す
-			while (u != endcallLoop) {
-				System.out.print("1～5の数値を入力してください:(" + endcallLoop + "で終了)");
+			while (u != endcallLoop[0]||u !=endcallLoop[1]) {
+				System.out.print("1～5の数値を入力してください:(" + endcallLoop[0] + "で終了)");
 				u = openInput.readLine();
-				if (u.equals(endcallLoop)) {
+				if (u.equals(endcallLoop[0])||u.equals(endcallLoop[1])) {
 					System.out.println("終了します");
 					break;
 				}
@@ -55,7 +55,7 @@ public class AcceptUserInput {
 						//TODO オリジナルの仕様が判明次第追加
 						break;
 					}
-					u = endcallLoop;//endWhile
+					u = endcallLoop[0];//endWhile
 				} else {
 					System.out.println("１～５以外の値が入力されたため戻ります。");
 				}
