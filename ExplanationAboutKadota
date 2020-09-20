@@ -1,0 +1,32 @@
+作成しているクラスの流れ
+
+Group_Even ---> AcceptUserInput ---> 各クラスの内容に応じた入力受付クラス
+                                    1 郵便番号から住所情報を取得<郵便番号→住所>
+                                     (AcceptUserInputForGetZipCode)
+                                    2 住所の一部から地名情報を取得<北海道地名検索>
+                                     (AcceptUserInputForGetAddressKeyWord)
+                                    3 Userの入力した情報を取得<地名よみがな当てゲーム>
+                                     (AcceptUserInputForPlaceNameGame)
+                                    4 Userの入力した個人情報を取得<AddressBook.csvに情報を登録>
+                                     (AcceptUserInputForAddressBook)
+                                    5 仕様が決まり次第実装<>
+                                     ()
+
+各クラスの説明
+Group_Even
+->本番のアプリケーションクラスです。
+    こちらに各入力受付のクラスをインスタンス生成して対応していく予定です。
+
+AcceptUserInput
+->Userが指定した番号のアプリへ橋渡しをするクラスです。
+  番号に応じたインスタンスを生成し,次の入力受付クラスへ渡します。
+
+各クラスの内容に応じた入力受付クラス
+->各担当者が"取得したい値"を参照できるクラスです。
+  正規表現で場合分けし,"取得したい値"を返すgetterとsetterで構成されています。
+  補足:4には郵便番号から住所を検索する補助メソッドが入っています、"01HOKKAI.CSV"も展開しています。
+
+
+
+//TODO 正規表現における例外処理をどうするか？関連ワード:patternsyntaxexception
+//TODO 4の補助メソッドで"01HOKKAI.CSV"を閉じる必要があるのか？
