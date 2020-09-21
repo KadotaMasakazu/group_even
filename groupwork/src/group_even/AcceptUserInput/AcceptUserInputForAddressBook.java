@@ -15,7 +15,7 @@ public class AcceptUserInputForAddressBook {
 	String personalInfo = "";
 
 	//各個人情報をUserに入力させ,personalInfoに","込みで出力
-	public String getPersonalInfo() {
+	public void setPersonalInfo() {
 		String personName = "";
 		String readName = "";
 		String sexID = "";
@@ -270,7 +270,7 @@ public class AcceptUserInputForAddressBook {
 				} // 分類IDの取得するfor文End
 
 				//取得した情報を","区切りの文字列にして参照
-				personalInfo = personName + "," + readName + "," + sexID + ","
+				this.personalInfo = personName + "," + readName + "," + sexID + ","
 						+ zipCode + "," + address + "," + phoneNumber + ","
 						+ emailAddress + "," + areaID + "," + sortingID;
 			}
@@ -279,7 +279,7 @@ public class AcceptUserInputForAddressBook {
 		} catch (IOException e2) {
 			e2.printStackTrace();
 		}
-		return personalInfo;
+
 	}
 
 
@@ -287,8 +287,8 @@ public class AcceptUserInputForAddressBook {
 
 
 
-	public void setPersonalInfo(String personalInfo) {
-		this.personalInfo = personalInfo;
+	public String getPersonalInfo() {
+		return this.personalInfo;
 	}
 
 

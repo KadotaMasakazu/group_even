@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 public class AcceptUserInputForGetZipCode {
 	String zipCode = "";
 
-	public String getZipCode() {
+	public void setZipCode() {
 
 		String userInputZipCode = "";
 		String endcallLoop = "q";
@@ -31,7 +31,7 @@ public class AcceptUserInputForGetZipCode {
 				Matcher matcher = acceptUserInput.matcher(z);
 				boolean isConfirmInput = matcher.matches();
 				if (isConfirmInput) {
-					zipCode = z;
+					this.zipCode = z;
 
 				} else {
 					System.out.println("例に沿った形で郵便番号を入力してください");
@@ -41,10 +41,10 @@ public class AcceptUserInputForGetZipCode {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return zipCode;
+
 	}
 
-	public void setZipCode(String zipCode) {
-		this.zipCode = zipCode;
+	public String getZipCode() {
+		return this.zipCode;
 	}
 }

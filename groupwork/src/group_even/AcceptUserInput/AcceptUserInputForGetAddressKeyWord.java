@@ -10,7 +10,7 @@ public class AcceptUserInputForGetAddressKeyWord {
 
 	String KeyWord = "";
 
-	public String getKeyWord() {
+	public void setKeyWord() {
 
 		String userInputKeyWord = "";
 		String endcallLoop = "q";
@@ -22,7 +22,7 @@ public class AcceptUserInputForGetAddressKeyWord {
 				System.out.println("住所の一部を入力してください:"
 						+ "(" + endcallLoop + "で終了)");
 				System.out.println("例:平岸,062");
-				k=openInput.readLine();
+				k = openInput.readLine();
 				if (k.equals(endcallLoop)) {
 					System.out.println("終了します");
 					break;
@@ -32,7 +32,7 @@ public class AcceptUserInputForGetAddressKeyWord {
 				Matcher matcher = acceptUserInput.matcher(k);
 				boolean isConfirmInput = matcher.matches();
 				if (isConfirmInput) {
-					KeyWord = k;
+					this.KeyWord = k;
 
 				} else {
 					System.out.println("例に沿った形で入力してください");
@@ -42,10 +42,10 @@ public class AcceptUserInputForGetAddressKeyWord {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return KeyWord;
+
 	}
 
-	public void setKeyWord(String keyWord) {
-		KeyWord = keyWord;
+	public String getKeyWord() {
+		return this.KeyWord;
 	}
 }

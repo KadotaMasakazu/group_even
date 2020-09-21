@@ -10,7 +10,7 @@ public class AcceptUserInputForPlaceNameGame {
 
 	String userInputWord = "";
 
-	public String getUserInputWord() {
+	public void setUserInputWord() {
 
 		try (BufferedReader openInput = new BufferedReader(
 				new InputStreamReader(System.in))) {
@@ -22,16 +22,16 @@ public class AcceptUserInputForPlaceNameGame {
 			Matcher matcher = acceptUserInput.matcher(w);
 			boolean isConfirmInput = matcher.matches();
 			if (isConfirmInput) {
-				userInputWord = w;
+				this.userInputWord = w;
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return userInputWord;
+
 	}
 
-	public void setUserInputWord(String userInputWord) {
-		this.userInputWord = userInputWord;
+	public String getUserInputWord() {
+		return this.userInputWord;
 	}
 
 }
