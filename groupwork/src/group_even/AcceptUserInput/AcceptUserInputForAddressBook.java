@@ -8,8 +8,6 @@ import java.io.InputStreamReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
-
 public class AcceptUserInputForAddressBook {
 
 	String personalInfo = "";
@@ -38,17 +36,18 @@ public class AcceptUserInputForAddressBook {
 					personName = openInput.readLine();
 
 					//正規表現で全角とqのみ受付
-					Pattern acceptUserInput = Pattern.compile("^[^-~｡-ﾟ]*$|^q+");
+					Pattern acceptUserInput = Pattern.compile("^[^!-~｡-ﾟ]*$|^q+");
 					Matcher matcher = acceptUserInput.matcher(personName);
 					boolean isConfirmInput = matcher.matches();
-					if (!isConfirmInput) {
-						System.out.println("全角のみで入力を行ってください");
-						inputPersonalName--;
-					}
 					if (personName.equals(endcallLoop)) {
 						System.out.println("終了します");
 						break loop_startInputPersonalInfo;
 					}
+					if (!isConfirmInput) {
+						System.out.println("全角のみで入力を行ってください");
+						inputPersonalName--;
+					}
+
 				}
 
 				//入力された名前の読み仮名を取得
@@ -60,14 +59,15 @@ public class AcceptUserInputForAddressBook {
 					Pattern acceptUserInput = Pattern.compile("^[ぁ-んー]*$|^q+");
 					Matcher matcher = acceptUserInput.matcher(readName);
 					boolean isConfirmInput = matcher.matches();
-					if (!isConfirmInput) {
-						System.out.println("全角ひらがなのみで入力を行ってください");
-						inputHowToReadName--;
-					}
 					if (readName.equals(endcallLoop)) {
 						System.out.println("終了します");
 						break loop_startInputPersonalInfo;
 					}
+					if (!isConfirmInput) {
+						System.out.println("全角ひらがなのみで入力を行ってください");
+						inputHowToReadName--;
+					}
+
 				}
 
 				//性別情報を取得
@@ -76,24 +76,22 @@ public class AcceptUserInputForAddressBook {
 					sexID = openInput.readLine();
 
 					//正規表現で半角数字の1,2とqのみ受付
-					Pattern acceptUserInput = Pattern.compile("^[1-2]+|^q+");
-					Matcher matcher = acceptUserInput.matcher(readName);
+					Pattern acceptUserInput = Pattern.compile("^[1-2]+$|^q+");
+					Matcher matcher = acceptUserInput.matcher(sexID);
 					boolean isConfirmInput = matcher.matches();
+					if (sexID.equals(endcallLoop)) {
+						System.out.println("終了します");
+						break loop_startInputPersonalInfo;
+					}
 					if (!isConfirmInput) {
 						System.out.println("正しく性別IDが入力されていません");
 						inputSexID--;
 					}
-
-					if (sexID.equals(endcallLoop)) {
-						System.out.println("終了します");
-						break loop_startInputPersonalInfo;
-					} else if (sexID.equals("1")) {
+					if (sexID.equals("1")) {
 						sexID = "男性";
-					} else if (sexID.equals("2")) {
+					}
+					if (sexID.equals("2")) {
 						sexID = "女性";
-					} else {
-						System.out.println("正しく性別IDが入力されていません");
-						inputSexID--;
 					}
 				}
 
@@ -101,23 +99,25 @@ public class AcceptUserInputForAddressBook {
 				for (int inputZipCode = 0; inputZipCode < 1; inputZipCode++) {
 					System.out.println("郵便番号を入力してください");
 					System.out.println("例:002-8026,0411622");
+					System.out.println(":");
 					zipCode = openInput.readLine();
 
 					//正規表現で郵便番号とqのみ受け付け
 					Pattern acceptUserInput = Pattern.compile("^[0-9]{3}-?[0-9]{4}|^q+");
 					Matcher matcher = acceptUserInput.matcher(zipCode);
 					boolean isConfirmInput = matcher.matches();
-					if (!isConfirmInput) {
-						System.out.println("例に沿った形で郵便番号を入力してください");
-						--inputZipCode;
-					}
 					if (zipCode.equals(endcallLoop)) {
 						System.out.println("終了します");
 						break loop_startInputPersonalInfo;
 					}
+					if (!isConfirmInput) {
+						System.out.println("例に沿った形で郵便番号を入力してください");
+						--inputZipCode;
+					}
 
 					//郵便番号から住所を入手
-					System.out.println("住所:" + getAddress(zipCode));
+					//XXX 該当ファイルの参照ができない
+//					System.out.println("住所:" + getAddress(zipCode));
 				}
 
 				//電話番号を取得
@@ -130,14 +130,15 @@ public class AcceptUserInputForAddressBook {
 									+ "^q+");
 					Matcher matcher = acceptUserInput.matcher(phoneNumber);
 					boolean isConfirmInput = matcher.matches();
-					if (!isConfirmInput) {
-						System.out.println("例に沿った形で電話番号を入力してください");
-						inputPhoneNumber--;
-					}
 					if (phoneNumber.equals("q")) {
 						System.out.println("終了します");
 						break loop_startInputPersonalInfo;
 					}
+					if (!isConfirmInput) {
+						System.out.println("例に沿った形で電話番号を入力してください");
+						inputPhoneNumber--;
+					}
+
 				}
 
 				//メールアドレスを取得
@@ -147,42 +148,43 @@ public class AcceptUserInputForAddressBook {
 					//正規表現でメールアドレスとqのみ受け付け
 					Pattern acceptUserInput = Pattern.compile(
 							"^[\\w!#%&'/=~`\\*\\+\\?\\{\\}\\^\\$\\-\\|]+"
-							+ "(\\.[\\w!#%&'/=~`\\*\\+\\?\\{\\}\\^\\$\\-\\|]+)*@"
-							+ "[\\w!#%&'/=~`\\*\\+\\?\\{\\}\\^\\$\\-\\|]+"
-							+ "(\\.[\\w!#%&'/=~`\\*\\+\\?\\{\\}\\^\\$\\-\\|]+)*$"
-							+ "|^q+");
+									+ "(\\.[\\w!#%&'/=~`\\*\\+\\?\\{\\}\\^\\$\\-\\|]+)*@"
+									+ "[\\w!#%&'/=~`\\*\\+\\?\\{\\}\\^\\$\\-\\|]+"
+									+ "(\\.[\\w!#%&'/=~`\\*\\+\\?\\{\\}\\^\\$\\-\\|]+)*$"
+									+ "|^q+");
 					Matcher matcher = acceptUserInput.matcher(emailAddress);
 					boolean isConfirmInput = matcher.matches();
-					if (!isConfirmInput) {
-						System.out.println("例に沿った形でメールアドレスを入力してください");
-						inputEmailAddress--;
-					}
 					if (emailAddress.equals("q")) {
 						System.out.println("終了します");
 						break loop_startInputPersonalInfo;
 					}
+					if (!isConfirmInput) {
+						System.out.println("例に沿った形でメールアドレスを入力してください");
+						inputEmailAddress--;
+					}
 
 				}
 
-
 				//居住地域を取得
 				for (int inputAreaID = 0; inputAreaID < 1; inputAreaID++) {
-					System.out.print("居住地域(半角数字)を入力してください。:");
+					System.out.println("居住地域(半角数字)を入力してください。:");
 					System.out
-							.print("1:北海道2:東北:3:関東4:中部5:近畿6:中国7:四国8:九州9:沖縄10:海外");
+							.println("1:北海道2:東北:3:関東4:中部5:近畿6:中国7:四国8:九州9:沖縄10:海外");
+					System.out.println(":");
 					areaID = openInput.readLine();
 					//正規表現で1～10とqのみ受け付け
 					Pattern acceptUserInput = Pattern.compile("^[0-10]|^q+");
 					Matcher matcher = acceptUserInput.matcher(areaID);
 					boolean isConfirmInput = matcher.matches();
-					if (!isConfirmInput) {
-						System.out.println("1から10の数字を入力してください");
-						--inputAreaID;
-					}
 					if (areaID.equals("q")) {
 						System.out.println("終了します");
 						break loop_startInputPersonalInfo;
 					}
+					if (!isConfirmInput) {
+						System.out.println("1から10の数字を入力してください");
+						--inputAreaID;
+					}
+
 					switch (areaID) {
 					case "1":
 						areaID = "北海道";
@@ -221,27 +223,23 @@ public class AcceptUserInputForAddressBook {
 					}
 				} // 居住地域を取得するfor文End
 
-
 				//分類IDの取得
 				for (int inputSortingID = 0; inputSortingID < 1; inputSortingID++) {
-					System.out.print("分類ID(半角数字)を入力してください。:");
-					System.out.print("1:家族2:友人:3:知り合い4:仕事5:お店6:その他");
+					System.out.println("分類ID(半角数字)を入力してください。:");
+					System.out.println("1:家族2:友人:3:知り合い4:仕事5:お店6:その他");
+					System.out.println(":");
 					sortingID = openInput.readLine();
 					//正規表現で1～6とqのみ受け付け
 					Pattern acceptUserInput = Pattern.compile("^[0-6]|^q+");
 					Matcher matcher = acceptUserInput.matcher(sortingID);
 					boolean isConfirmInput = matcher.matches();
-					if (!isConfirmInput) {
-						System.out.println("1から10の数字を入力してください");
-						--inputSortingID;
-					}
-					if (sortingID.isEmpty()) {
-						System.out.println("分類IDが正しくありません!!");
-						inputSortingID--;
-					}
 					if (sortingID.equals("q")) {
 						System.out.println("終了します");
 						break loop_startInputPersonalInfo;
+					}
+					if (!isConfirmInput) {
+						System.out.println("1から10の数字を入力してください");
+						--inputSortingID;
 					}
 					switch (sortingID) {
 					case "1":
@@ -273,30 +271,21 @@ public class AcceptUserInputForAddressBook {
 				this.personalInfo = personName + "," + readName + "," + sexID + ","
 						+ zipCode + "," + address + "," + phoneNumber + ","
 						+ emailAddress + "," + areaID + "," + sortingID;
+
 			}
 		} catch (NumberFormatException e1) {
 			e1.printStackTrace();
 		} catch (IOException e2) {
 			e2.printStackTrace();
 		}
-
 	}
-
-
-
-
-
 
 	public String getPersonalInfo() {
 		return this.personalInfo;
 	}
 
-
-
-
-
 	//"01HOKKAI.CSV"から郵便番号を元に住所情報を取得する補助メソッド
-	public static String getAddress(String zipCode) {
+	public String getAddress(String zipCode) {
 
 		String address = "該当する住所がありません";
 		String[] str = null;

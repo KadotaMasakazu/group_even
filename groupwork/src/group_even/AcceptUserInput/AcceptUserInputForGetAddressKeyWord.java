@@ -23,14 +23,16 @@ public class AcceptUserInputForGetAddressKeyWord {
 						+ "(" + endcallLoop + "で終了)");
 				System.out.println("例:平岸,062");
 				k = openInput.readLine();
-				if (k.equals(endcallLoop)) {
-					System.out.println("終了します");
-					break;
-				}
+
 				//正規表現で住所情報のみ受け付け
 				Pattern acceptUserInput = Pattern.compile("/w+");
 				Matcher matcher = acceptUserInput.matcher(k);
 				boolean isConfirmInput = matcher.matches();
+				if (k.equals(endcallLoop)) {
+					System.out.println("終了します");
+					this.KeyWord = k;
+					break;
+				}
 				if (isConfirmInput) {
 					this.KeyWord = k;
 
