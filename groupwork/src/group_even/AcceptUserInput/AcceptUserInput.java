@@ -11,18 +11,18 @@ public class AcceptUserInput {
 	public void inputReception() {
 
 		String userInput = "";
-		String[] endcallLoop = { "q", "ｑ" };
+		String endcallLoop = "q";
 
 		try (BufferedReader openInput = new BufferedReader(
 				new InputStreamReader(System.in))) {
 
 			String u = userInput;
 			//1～5の番号ごとにインスタンスを生成して入力用メソッドに渡す
-			while (u != endcallLoop[0] || u != endcallLoop[1]) {
-				System.out.println("1～5の数値を入力してください:(" + endcallLoop[0] + "で終了)");
+			while (!u.equalsIgnoreCase(endcallLoop)) {
+				System.out.println("1～5の数値を入力してください:(" + endcallLoop + "で終了)");
 				showIndroduction();
 				u = openInput.readLine();
-				if (u.equals(endcallLoop[0]) || u.equals(endcallLoop[1])) {
+				if (u.equalsIgnoreCase(endcallLoop)) {
 					System.out.println("終了します");
 					break;
 				}
@@ -36,7 +36,7 @@ public class AcceptUserInput {
 					case "1":
 						AcceptUserInputForGetZipCode menu1 = new AcceptUserInputForGetZipCode();
 						menu1.setZipCode();
-						if (menu1.getZipCode().equals(endcallLoop[0]) || u.equals(endcallLoop[1])) {
+						if (menu1.getZipCode().equalsIgnoreCase(endcallLoop)) {
 							break;
 						}
 						//担当のクラスを挿入
@@ -47,7 +47,7 @@ public class AcceptUserInput {
 					case "2":
 						AcceptUserInputForGetAddressKeyWord menu2 = new AcceptUserInputForGetAddressKeyWord();
 						menu2.setKeyWord();
-						if (menu2.getKeyWord().equals(endcallLoop[0]) || u.equals(endcallLoop[1])) {
+						if (menu2.getKeyWord().equalsIgnoreCase(endcallLoop)) {
 							break;
 						}
 						break;
@@ -58,7 +58,7 @@ public class AcceptUserInput {
 					case "4":
 						AcceptUserInputForAddressBook menu4 = new AcceptUserInputForAddressBook();
 						menu4.setPersonalInfo();
-						if (menu4.getPersonalInfo().equals(endcallLoop[0]) || u.equals(endcallLoop[1])) {
+						if (menu4.getPersonalInfo().equalsIgnoreCase(endcallLoop)) {
 							break;
 						}
 						//担当のクラスを挿入
