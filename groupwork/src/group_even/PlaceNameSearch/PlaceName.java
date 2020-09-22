@@ -1,4 +1,4 @@
-package even;
+package group_even.PlaceNameSearch;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
