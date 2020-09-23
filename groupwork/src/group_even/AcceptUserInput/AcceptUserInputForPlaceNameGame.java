@@ -1,4 +1,4 @@
-package group_even;
+package group_even_test.group_even.AcceptUserInput;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,9 +8,9 @@ import java.util.regex.Pattern;
 
 public class AcceptUserInputForPlaceNameGame {
 
-	String InputWord = "";
+	String placeName = "";
 
-	public void setUserInputWord() {
+	public void setPlaceName() {
 		String userInputWord = "";
 		String endcallLoop = "q";
 
@@ -18,14 +18,20 @@ public class AcceptUserInputForPlaceNameGame {
 				new InputStreamReader(System.in))) {
 			String w = userInputWord;
 			while (w != endcallLoop) {
-				System.out.println("住所の一部を入力してください:");
+				System.out.println("次の地名のよみがなを半角カタカナで入力してください。"
+						+ "(" + endcallLoop + "で終了):");
 				w = openInput.readLine();
 				//正規表現で半角カタカナのみ受け付け
-				Pattern acceptUserInput = Pattern.compile("^[｡-ﾟ]*$");
+				Pattern acceptUserInput = Pattern.compile("^[｡-ﾟ]*$|^q+");
 				Matcher matcher = acceptUserInput.matcher(w);
 				boolean isConfirmInput = matcher.matches();
+				if (AcceptUserInput.isEndCallWord(w)) {
+					System.out.println("終了します");
+					this.placeName = w;
+					break;
+				}
 				if (isConfirmInput) {
-					this.InputWord = w;
+					this.placeName = w;
 				}
 			}
 		} catch (IOException e) {
@@ -34,8 +40,8 @@ public class AcceptUserInputForPlaceNameGame {
 
 	}
 
-	public String getUserInputWord() {
-		return this.InputWord;
+	public String getPlaceName() {
+		return this.placeName;
 	}
 
 }

@@ -1,4 +1,4 @@
-package group_even;
+package group_even_test.group_even.AcceptUserInput;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,25 +18,26 @@ public class AcceptUserInput {
 
 			String u = userInput;
 			//1～5の番号ごとにインスタンスを生成して入力用メソッドに渡す
-			while (!u.equalsIgnoreCase(endcallLoop)) {
+			while (!isEndCallWord(u)) {
 				System.out.println("1～5の数値を入力してください:(" + endcallLoop + "で終了)");
 				showIndroduction();
 				u = openInput.readLine();
-				if (u.equalsIgnoreCase(endcallLoop)) {
-					System.out.println("終了します");
-					break;
-				}
+
 				//正規表現（1～5）のみを受け付けている。
 				Pattern acceptUserInput = Pattern.compile("^[1-5]+");
 				Matcher matcher = acceptUserInput.matcher(u);
 				boolean isConfirmInput = matcher.matches();
+				if (isEndCallWord(u)) {
+					System.out.println("終了します");
+					break;
+				}
 				//1～5を場合分けしたのち入力用メソッドへ受け渡し
 				if (isConfirmInput) {
 					switch (u) {
 					case "1":
 						AcceptUserInputForGetZipCode menu1 = new AcceptUserInputForGetZipCode();
 						menu1.setZipCode();
-						if (menu1.getZipCode().equalsIgnoreCase(endcallLoop)) {
+						if (isEndCallWord(menu1.getZipCode())) {
 							break;
 						}
 						//担当のクラスを挿入
@@ -45,20 +46,24 @@ public class AcceptUserInput {
 						outputFromMenu1.outputAddress();
 						break;
 					case "2":
-						AcceptUserInputForGetAddressKeyWord menu2 = new AcceptUserInputForGetAddressKeyWord();
-						menu2.setKeyWord();
-						if (menu2.getKeyWord().equalsIgnoreCase(endcallLoop)) {
+						AcceptUserInputForGetAddressInfo menu2 = new AcceptUserInputForGetAddressInfo();
+						menu2.setAddressInfo();
+						if (isEndCallWord(menu2.getAddressInfo())) {
 							break;
 						}
 						break;
 					case "3":
 						//TODO 地名よみがな当てゲームのクラスに直接渡すべき？
 						//Userが入力するメソッドだけ用意しておきました。
+						//0923 利便性の面から担当者のクラスのみで運用。
+						GetAddressFromKeyword menu3 = new GetAddressFromKeyword();
+						menu3.getAddressFromUsetInputtedKeyword();
 						break;
+
 					case "4":
 						AcceptUserInputForAddressBook menu4 = new AcceptUserInputForAddressBook();
 						menu4.setPersonalInfo();
-						if (menu4.getPersonalInfo().equalsIgnoreCase(endcallLoop)) {
+						if (isEndCallWord(menu4.getPersonalInfo())) {
 							break;
 						}
 						//担当のクラスを挿入
@@ -88,5 +93,14 @@ public class AcceptUserInput {
 		System.out.println("3:地名よみがな当てゲーム");
 		System.out.println("4:個人情報をAddressBook.csvに登録します。");
 		System.out.println("5:オリジナルクラス。");
+	}
+
+	public static boolean isEndCallWord(String userInput) {
+
+		if(userInput.equals("q")||userInput.equals("ｑ")) {
+		return true;
+		}
+		return false;
+
 	}
 }

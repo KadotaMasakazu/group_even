@@ -1,4 +1,4 @@
-package group_even;
+package group_even_test.group_even.AcceptUserInput;
 
 public class AddressBook {
 	String personalInfo = "";

@@ -1,4 +1,4 @@
-package group_even;
+package group_even_test.group_even.AcceptUserInput;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -36,10 +36,10 @@ public class AcceptUserInputForAddressBook {
 					personName = openInput.readLine();
 
 					//正規表現で全角とqのみ受付
-					Pattern acceptUserInput = Pattern.compile("^[^!-~｡-ﾟ]*$|^q+");
+					Pattern acceptUserInput = Pattern.compile("^[/u30A0-/u309F]+$|^q+");
 					Matcher matcher = acceptUserInput.matcher(personName);
 					boolean isConfirmInput = matcher.matches();
-					if (personName.equals(endcallLoop)) {
+					if (AcceptUserInput.isEndCallWord(personName)) {
 						System.out.println("終了します");
 						break loop_startInputPersonalInfo;
 					}
@@ -56,10 +56,10 @@ public class AcceptUserInputForAddressBook {
 					readName = openInput.readLine();
 
 					//正規表現で全角ひらがなとqのみ受付
-					Pattern acceptUserInput = Pattern.compile("^[ぁ-んー]*$|^q+");
+					Pattern acceptUserInput = Pattern.compile("^[/u3040-/u309F]+$|^q+");
 					Matcher matcher = acceptUserInput.matcher(readName);
 					boolean isConfirmInput = matcher.matches();
-					if (readName.equals(endcallLoop)) {
+					if (AcceptUserInput.isEndCallWord(readName)) {
 						System.out.println("終了します");
 						break loop_startInputPersonalInfo;
 					}
@@ -79,7 +79,7 @@ public class AcceptUserInputForAddressBook {
 					Pattern acceptUserInput = Pattern.compile("^[1-2]+$|^q+");
 					Matcher matcher = acceptUserInput.matcher(sexID);
 					boolean isConfirmInput = matcher.matches();
-					if (sexID.equals(endcallLoop)) {
+					if (AcceptUserInput.isEndCallWord(sexID)) {
 						System.out.println("終了します");
 						break loop_startInputPersonalInfo;
 					}
@@ -106,7 +106,7 @@ public class AcceptUserInputForAddressBook {
 					Pattern acceptUserInput = Pattern.compile("^[0-9]{3}-?[0-9]{4}|^q+");
 					Matcher matcher = acceptUserInput.matcher(zipCode);
 					boolean isConfirmInput = matcher.matches();
-					if (zipCode.equals(endcallLoop)) {
+					if (AcceptUserInput.isEndCallWord(zipCode)) {
 						System.out.println("終了します");
 						break loop_startInputPersonalInfo;
 					}
@@ -130,7 +130,7 @@ public class AcceptUserInputForAddressBook {
 									+ "^q+");
 					Matcher matcher = acceptUserInput.matcher(phoneNumber);
 					boolean isConfirmInput = matcher.matches();
-					if (phoneNumber.equals("q")) {
+					if (AcceptUserInput.isEndCallWord(phoneNumber)) {
 						System.out.println("終了します");
 						break loop_startInputPersonalInfo;
 					}
@@ -154,7 +154,7 @@ public class AcceptUserInputForAddressBook {
 									+ "|^q+");
 					Matcher matcher = acceptUserInput.matcher(emailAddress);
 					boolean isConfirmInput = matcher.matches();
-					if (emailAddress.equals("q")) {
+					if (AcceptUserInput.isEndCallWord(emailAddress)) {
 						System.out.println("終了します");
 						break loop_startInputPersonalInfo;
 					}
@@ -176,7 +176,7 @@ public class AcceptUserInputForAddressBook {
 					Pattern acceptUserInput = Pattern.compile("^[0-10]|^q+");
 					Matcher matcher = acceptUserInput.matcher(areaID);
 					boolean isConfirmInput = matcher.matches();
-					if (areaID.equals("q")) {
+					if (AcceptUserInput.isEndCallWord(areaID)) {
 						System.out.println("終了します");
 						break loop_startInputPersonalInfo;
 					}
@@ -233,7 +233,7 @@ public class AcceptUserInputForAddressBook {
 					Pattern acceptUserInput = Pattern.compile("^[0-6]|^q+");
 					Matcher matcher = acceptUserInput.matcher(sortingID);
 					boolean isConfirmInput = matcher.matches();
-					if (sortingID.equals("q")) {
+					if (AcceptUserInput.isEndCallWord(sortingID)) {
 						System.out.println("終了します");
 						break loop_startInputPersonalInfo;
 					}
