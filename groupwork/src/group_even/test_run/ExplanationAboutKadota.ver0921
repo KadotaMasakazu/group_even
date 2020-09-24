@@ -1,0 +1,46 @@
+作成しているクラスの流れ
+
+Group_Even ---> AcceptUserInput ---> 各クラスの内容に応じた入力受付クラス
+                                    1 郵便番号から住所情報を取得<郵便番号→住所>
+                                     (AcceptUserInputForGetZipCode)
+                                    2 住所の一部から地名情報を取得<北海道地名検索>
+                                     (AcceptUserInputForGetAddressKeyWord)
+                                    3 Userの入力した情報を取得<地名よみがな当てゲーム>
+                                     (AcceptUserInputForPlaceNameGame)
+                                    4 Userの入力した個人情報を取得<AddressBook.csvに情報を登録>
+                                     (AcceptUserInputForAddressBook)
+                                    5 仕様が決まり次第実装<>
+                                     ()
+
+各クラスの説明
+Group_Even
+->本番のアプリケーションクラスです。
+    こちらに各入力受付のクラスをインスタンス生成して対応していく予定です。
+
+AcceptUserInput
+->Userが指定した番号のアプリへ橋渡しをするクラスです。
+  番号に応じたインスタンスを生成し,次の入力受付クラスへ渡します。
+
+各クラスの内容に応じた入力受付クラス
+->各担当者が"取得したい値"を参照できるクラスです。
+  正規表現で場合分けし,"取得したい値"を返すgetterとsetterで構成されています。
+  補足:4には郵便番号から住所を検索する補助メソッドが入っています、"01HOKKAI.CSV"も展開しています。
+
+
+//TODO どの段階のクラスを継承してもらうのか?(AcceptUserInputか各クラスの内容に応じた入力受付クラス)
+//TODO 正規表現における例外処理をどうするか？関連ワード:patternsyntaxexception
+//TODO 4の補助メソッドで"01HOKKAI.CSV"を閉じる必要があるのか？
+(0921追記)->try-with-resourceの性質上メソッド終了時にファイルが閉じるので問題なし。
+
+
+
+
+//UPdate 0921
+・各種クラスのsetter,メソッドの調整
+・作成したクラスが動いているか確認するための"デモ"クラス,AddressBookとOutputAddressFromZipCodeクラスを追加
+ 二つのクラスはあくまで入力された値をコンソールに出力させているだけなので、
+ 例:2北海道地名検索->受け取った値を元にArrayList(01HOKKAI.CSV)から検索する
+ などの処理が必要。
+//XXX AcceptUserInputForAddressBookとAddressBookで
+ 01HOKKAI.CSVを開くことができなかったです(bin,srcに該当ファイルを確認済み)
+ 0922中に解決してみます。
